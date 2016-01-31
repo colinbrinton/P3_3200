@@ -79,6 +79,7 @@ namespace P3
         {
             if (active)
             {
+                ++displayCount;
                 int[] display = new int[collage.Count];
                 for (int index = 0; index < collage.Count; ++index)
                 {

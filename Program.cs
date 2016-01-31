@@ -14,6 +14,7 @@ namespace P3
         const int MAX_IMG = 11;
         const int TEST_SIZE = 10;
         const int REPEAT = 5;
+        const int COLLAGE_PORTION = 2;
 
         const int RANDOM_SIZE = H_ARRAY_SIZE - NUM_COL;
         const int BIT_INDEX = H_ARRAY_SIZE - 3;
@@ -32,15 +33,36 @@ namespace P3
             Console.WriteLine();
             Console.WriteLine();
 
-            Console.Write("Displaying all collages in array: ");
+            Console.Write("Displaying all collages in random portion of array: ");
             Console.WriteLine();
             displayAll(heteroCollageArray);
             Console.WriteLine();
+            Console.Write("Press any key to clear screen and test imageCollage object...");
+            Console.ReadKey();
 
+            Console.Clear();
+            Console.Write("Testing imageCollage functionality: ");
+            Console.WriteLine();
+            imageCollageTestSuite(heteroCollageArray[IMAGE_INDEX]);
+            Console.WriteLine();
+            Console.Write("Press any key to clear screen and test cyclicCollage object...");
+            Console.ReadKey();
+
+            Console.Clear();
+            Console.Write("Testing cyclicCollage functionality: ");
+            Console.WriteLine();
+            cyclicCollageTestSuite(heteroCollageArray[CYCLIC_INDEX]);
+            Console.WriteLine();
+            Console.Write("Press any key to clear screen and test bitCollage object...");
+            Console.ReadKey();
+
+            Console.Clear();
             Console.Write("Testing bitCollage functionality: ");
             Console.WriteLine();
             bitCollageTestSuite(heteroCollageArray[BIT_INDEX]);
+            Console.WriteLine();
 
+            Console.Write("Press any key to exit...");
             Console.ReadKey();
         }
 
@@ -71,6 +93,137 @@ namespace P3
                     colArray[index] = new imageCollage(TEST_SIZE);
                 }
             }
+        }
+
+        static void imageCollageTestSuite(imageCollage imageCollage)
+        {
+            Console.Write("Calling getDisplay() on imageCollage object: ");
+            Console.WriteLine();
+            displayCollage(imageCollage.getDisplay());
+            Console.WriteLine();
+
+            Console.WriteLine();
+            Console.Write("Testing replaceImage() imageCollage method: ");
+            Console.WriteLine();
+            Console.Write("Calling getDisplay() to fill an array of images to replace...");
+            int[] replace = imageCollage.getDisplay();
+            Console.Write("Done.");
+            Console.WriteLine();
+            for (int index = 0; index < (TEST_SIZE / COLLAGE_PORTION); ++index)
+            {
+                Console.Write("Attempting to replace ");
+                Console.Write(replace[index]);
+                Console.Write("...");
+                if (imageCollage.replaceImage(replace[index]))
+                    Console.Write("Success!");
+                else
+                    Console.Write("Failed!");
+                Console.WriteLine();
+            }
+
+            Console.WriteLine();
+            Console.Write("Calling getDisplay() on imageCollage object: ");
+            Console.WriteLine();
+            displayCollage(imageCollage.getDisplay());
+            Console.WriteLine();
+
+            Console.WriteLine();
+            Console.Write("Testing imgQuery(): ");
+            Console.WriteLine();
+            Console.Write("Is ");
+            Console.Write(replace[TEST_SIZE - 1]);
+            Console.Write(" in the collage: ");
+            if (imageCollage.imgQuery(replace[TEST_SIZE - 1]))
+                Console.Write("Yes!");
+            else
+                Console.Write("No!");
+            Console.WriteLine();
+            Console.Write("Is ");
+            Console.Write(replace[IMAGE]);
+            Console.Write(" in the collage: ");
+            if (imageCollage.imgQuery(replace[IMAGE]))
+                Console.Write("Yes!");
+            else
+                Console.Write("No!");
+            Console.WriteLine();
+
+            Console.WriteLine();
+            Console.Write("getDisplay() has been called ");
+            Console.Write(imageCollage.getDisplayCount());
+            Console.Write(" times.");
+            Console.WriteLine();
+
+            Console.Write(imageCollage.getReplaceCount());
+            Console.Write(" images have been replaced.");
+            Console.WriteLine();
+
+            Console.WriteLine();
+            Console.Write("Calling toggleActive()...");
+            imageCollage.toggleActive();
+            Console.Write("Done.");
+            Console.WriteLine();
+            Console.Write("Attempting to replace ");
+            Console.Write(replace[TEST_SIZE - 1]);
+            Console.Write("...");
+            if (imageCollage.replaceImage(replace[TEST_SIZE - 1]))
+                Console.Write("Success!");
+            else
+                Console.Write("Failed!");
+            Console.WriteLine();
+            Console.Write("Attempting to display collage: ");
+            displayCollage(imageCollage.getDisplay());
+            Console.WriteLine();
+
+            Console.Write("Calling toggleActive()...");
+            imageCollage.toggleActive();
+            Console.Write("Done.");
+            Console.WriteLine();
+            Console.Write("Attempting to replace ");
+            Console.Write(replace[TEST_SIZE - 1]);
+            Console.Write("...");
+            if (imageCollage.replaceImage(replace[TEST_SIZE - 1]))
+                Console.Write("Success!");
+            else
+                Console.Write("Failed!");
+            Console.WriteLine();
+            Console.Write("Attempting to display collage: ");
+            Console.WriteLine();
+            displayCollage(imageCollage.getDisplay());
+            Console.WriteLine();
+
+
+        }
+
+
+        static void cyclicCollageTestSuite(imageCollage cyclicCollage)
+        {
+            Console.Write("Calling getDisplay() on cyclicCollage object 5 times: ");
+            Console.WriteLine();
+            repeatDisplay(cyclicCollage);
+            Console.WriteLine();
+
+            Console.Write("getDisplay() has been called ");
+            Console.Write(cyclicCollage.getDisplayCount());
+            Console.Write(" times.");
+            Console.WriteLine();
+
+            Console.WriteLine();
+            Console.Write("Calling toggleActive()...");
+            cyclicCollage.toggleActive();
+            Console.Write("Done.");
+            Console.WriteLine();
+            Console.Write("Attempting to display collage: ");
+            displayCollage(cyclicCollage.getDisplay());
+            Console.WriteLine();
+
+            Console.Write("Calling toggleActive()...");
+            cyclicCollage.toggleActive();
+            Console.Write("Done.");
+            Console.WriteLine();
+            Console.Write("Attempting to display collage: ");
+            Console.WriteLine();
+            displayCollage(cyclicCollage.getDisplay());
+            Console.WriteLine();
         }
 
         static void bitCollageTestSuite(imageCollage bitCollage)
@@ -127,6 +280,7 @@ namespace P3
             Console.Write("Done.");
             Console.WriteLine();
             Console.Write("Attempting to display collage: ");
+            Console.WriteLine();
             displayCollage(bitCollage.getDisplay());
             Console.WriteLine();
         }
