@@ -60,7 +60,7 @@ namespace P3
             }
         }
 
-        public override void replaceImage(int imgID)
+        public override bool replaceImage(int imgID)
         {
             if (active && ((imgID % 2) != 0) )
             {
@@ -71,8 +71,10 @@ namespace P3
                         replacement = rnd.Next(COL_MIN, COL_MAX);
                     collage[collage.IndexOf(imgID)] = replacement;
                     ++replaceCount;
+                    return true;
                 }
             }
+            return false;
         }
 
     }

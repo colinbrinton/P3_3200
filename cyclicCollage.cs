@@ -26,7 +26,7 @@ namespace P3
             displaySize = collage.Count;
         }
 
-        public override void replaceImage(int imgID) { }
+        public override bool replaceImage(int imgID) { return false; }
 
         public override int[] getDisplay()
         {

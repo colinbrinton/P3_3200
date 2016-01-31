@@ -11,7 +11,7 @@ namespace P3
         protected const int COL_MAX = 100000;
         protected List<int> collage;
         protected bool active;
-        public int displaySize;
+        protected int displaySize;
         protected int displayCount = 0;
         protected int replaceCount = 0;
 
@@ -28,6 +28,16 @@ namespace P3
                 collage.Add(randomImg);
             }
             displaySize = collage.Count;
+        }
+
+        public int getDisplayCount()
+        {
+            return displayCount;
+        }
+
+        public int getReplaceCount()
+        {
+            return replaceCount;
         }
 
         public void toggleActive()
@@ -48,7 +58,7 @@ namespace P3
             return false;
         }
 
-        public virtual void replaceImage(int imgID)
+        public virtual bool replaceImage(int imgID)
         {
             if (active)
             {
@@ -59,8 +69,10 @@ namespace P3
                         replacement = rnd.Next(COL_MIN, COL_MAX);
                     collage[collage.IndexOf(imgID)] = replacement;
                     ++replaceCount;
+                    return true;
                 }
             }
+            return false;
         }
 
         public virtual int[] getDisplay()
