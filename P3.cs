@@ -1,5 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿// AUTHOR: Colin Brinton
+// FILENAME: P3.cs
+// DATE: 2/1/2016
+// REVISION HISTORY: 1.0
+using System;
 
 namespace P3
 {

@@ -1,4 +1,8 @@
-﻿using System;
+﻿// AUTHOR: Colin Brinton
+// FILENAME: imageCollage.cs
+// DATE: 2/1/2016
+// REVISION HISTORY: 1.0
+using System;
 using System.Collections.Generic;
 
 namespace P3
