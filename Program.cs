@@ -12,6 +12,22 @@ namespace P3
             //int[] testDisplay = new int[testCollage.displaySize];
             //testDisplay = testCollage.getDisplay();
 
+
+            Console.WriteLine();
+            if (testCollage.imgQuery(testCollage.getDisplay()[0]))
+                Console.Write("Image is in the collage.");
+            else
+                Console.Write("Image is NOT in the collage.");
+
+            Console.WriteLine();
+            testCollage.replaceImage(testCollage.getDisplay()[0]);
+            displayCollage(testCollage.getDisplay());
+
+            testCollage.toggleActive();
+            Console.WriteLine();
+            displayCollage(testCollage.getDisplay());
+
+
             Console.WriteLine();
             Console.WriteLine();
             imageCollage testCyclic = new cyclicCollage();
