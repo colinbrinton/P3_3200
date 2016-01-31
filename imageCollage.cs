@@ -8,11 +8,13 @@ namespace P3
         protected static Random rnd = new Random();
         protected const int DEFAULT_SIZE = 5;
         protected const int COL_MIN = 10000;
-        protected const int COL_MAX = 99999;
+        protected const int COL_MAX = 100000;
         protected List<int> collage;
         protected bool active;
         public int displaySize;
         protected int displayCount = 0;
+        protected int replaceCount = 0;
+
 
         public imageCollage(int size = DEFAULT_SIZE)
         {
@@ -20,7 +22,10 @@ namespace P3
             collage = new List<int>();
             for (int index = 0; index < size; index++)
             {
-                collage.Add(rnd.Next(COL_MIN, COL_MAX));
+                int randomImg = rnd.Next(COL_MIN, COL_MAX);
+                while(collage.Contains(randomImg))
+                    randomImg = rnd.Next(COL_MIN, COL_MAX);
+                collage.Add(randomImg);
             }
             displaySize = collage.Count;
         }
@@ -33,22 +38,27 @@ namespace P3
                 active = true;
         }
 
+        public bool imgQuery(int imgID)
+        {
+            if (active)
+            {
+                if (collage.Contains(imgID))
+                    return true;
+            }
+            return false;
+        }
+
         public virtual void replaceImage(int imgID)
         {
             if (active)
             {
-                int index = 0;
-                foreach (int element in collage)
+                if(collage.Contains(imgID))
                 {
-                    int replacement;
-                    if (imgID == collage[index])
-                    {
+                    int replacement = rnd.Next(COL_MIN, COL_MAX);
+                    while (collage.Contains(replacement))
                         replacement = rnd.Next(COL_MIN, COL_MAX);
-                        while (replacement == collage[index])
-                            replacement = rnd.Next(COL_MIN, COL_MAX);
-                        collage[index] = replacement;
-                    }
-                    ++index;
+                    collage[collage.IndexOf(imgID)] = replacement;
+                    ++replaceCount;
                 }
             }
         }

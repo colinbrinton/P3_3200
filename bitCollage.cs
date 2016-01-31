@@ -16,7 +16,10 @@ namespace P3
             collage = new List<int>();
             for (int index = 0; index < size; index++)
             {
-                collage.Add(rnd.Next(COL_MIN, COL_MAX));
+                int randomImg = rnd.Next(COL_MIN, COL_MAX);
+                while (collage.Contains(randomImg))
+                    randomImg = rnd.Next(COL_MIN, COL_MAX);
+                collage.Add(randomImg);
             }
             displaySize = collage.Count;
         }
@@ -56,5 +59,21 @@ namespace P3
                 return nullDisplay;
             }
         }
+
+        public override void replaceImage(int imgID)
+        {
+            if (active && ((imgID % 2) != 0) )
+            {
+                if(collage.Contains(imgID))
+                {
+                    int replacement = rnd.Next(COL_MIN, COL_MAX);
+                    while (collage.Contains(replacement))
+                        replacement = rnd.Next(COL_MIN, COL_MAX);
+                    collage[collage.IndexOf(imgID)] = replacement;
+                    ++replaceCount;
+                }
+            }
+        }
+
     }
 }
