@@ -7,7 +7,53 @@ namespace P3
     {
         static void Main()
         {
-            imageCollage testImage;
+            imageCollage testCollage = new imageCollage();
+            displayCollage(testCollage.getDisplay());
+            //int[] testDisplay = new int[testCollage.displaySize];
+            //testDisplay = testCollage.getDisplay();
+
+            Console.WriteLine();
+            Console.WriteLine();
+            imageCollage testCyclic = new cyclicCollage();
+            displayCollage(testCyclic.getDisplay());
+            Console.WriteLine();
+            displayCollage(testCyclic.getDisplay());
+            Console.WriteLine();
+            displayCollage(testCyclic.getDisplay());
+            Console.WriteLine();
+            displayCollage(testCyclic.getDisplay());
+
+            Console.WriteLine();
+            Console.WriteLine();
+            imageCollage testBit = new bitCollage();
+            displayCollage(testBit.getDisplay());
+            Console.WriteLine();
+            displayCollage(testBit.getDisplay());
+            Console.WriteLine();
+            displayCollage(testBit.getDisplay());
+            Console.WriteLine();
+            displayCollage(testBit.getDisplay());
+            Console.WriteLine();
+
+            Console.ReadKey();
         }
+
+        static void displayCollage(int[] imgCol)
+        {
+            int index = 0;
+            Console.Write(imgCol[index]);
+            foreach(int element in imgCol)
+            {
+                if(index != 0)
+                {
+                    Console.Write(", ");
+                    Console.Write(imgCol[index]);
+                }
+                ++index;
+            }
+            
+        }
+
+
     }
 }
