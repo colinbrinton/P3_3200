@@ -4,7 +4,7 @@
 // REVISION HISTORY: 1.0
 
 /* DESCRIPTION:
- * Extends the functionality of imageCollage. It uses an overriden getDisplay()
+ * Extends the functionality of imageCollage. It uses an overridden getDisplay()
  * to display a subset of its image IDs which is randomly determined to be between.
  * one and three less than its original set. replaceImage is overridden all will only
  * successfully replace odd image ID's.
@@ -84,7 +84,7 @@ namespace P3
 
         //preconditions: Called on an active imageCollage object
         //               passed an odd ID
-        //postconditions: replaced paseed imgID with new random,
+        //postconditions: replaced passed "imgID" with new random,
         //                 non-duplicate ID (if ODD)
         public override bool replaceImage(int imgID)
         {

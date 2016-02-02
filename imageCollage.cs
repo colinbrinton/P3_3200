@@ -17,7 +17,7 @@
  * replaced with another by passing the image ID to replaceImage(). The number
  * of successfully replaced images is counted in a protected data member which 
  * may also be returned via a public method. Finally, imgQuery() returns a bool
- * of true or flase, the passed image ID is in the collage.
+ * of true or false, the passed image ID is in the collage.
  */
 
 /* ASSUMPTIONS:
@@ -37,10 +37,10 @@ namespace P3
 {
     class imageCollage
     {
-        protected static const int NULL = 0;
         protected static Random rnd = new Random();
+        protected const int NULL = 0;
         protected const int DEFAULT_SIZE = 5;
-        protected const int COL_MIN = 10000; //May be changed to accomodate an image database with a different 
+        protected const int COL_MIN = 10000; //May be changed to accommodate an image database with a different 
         protected const int COL_MAX = 100000;//  amount of images.
         protected List<int> collage;
         protected bool active;
@@ -107,7 +107,7 @@ namespace P3
         }
 
         //preconditions: Called on an active imageCollage object
-        //postconditions: replaced paseed imgID with new random,
+        //postconditions: replaces passed imgID with new random,
         //                 non-duplicate ID
         public virtual bool replaceImage(int imgID)
         {

@@ -7,12 +7,12 @@
  * The purpose of the driver is to demonstrate the differing functionality between the base class
  * imageCollage and the two derived classes, cyclicCollage and bitCollage. To accomplish this
  * a heterogeneous array is used. It is allocated using the method allocateCollageArray() which
- * randomly assigns one of the the three classes to the first 10 indices. The last three index
+ * randomly assigns one of the three classes to the first 10 indices. The last three index
  * slots are reserved for one of each class. The random portion of the array demonstrates the
- * proper functioning of the heterogenous array and the three constant end spots are used for
+ * proper functioning of the heterogeneous array and the three constant end spots are used for
  * demonstrating the differing behavior of each class. The output is organized into four pages,
  * requiring a key press (input) to clear the screen and move on to the next. The first page
- * demonstrates the heterogenous array working with a randomly distributed assortment of class
+ * demonstrates the heterogeneous array working with a randomly distributed assortment of class
  * objects. Pages two through four each demonstrate a class's unique behavior. Each class uses
  * it's own "test suite" method within main along with two helper methods.
  */
@@ -25,10 +25,10 @@
  * and accessing the data within a bitCollage object is done through the display method which
  * randomly omits 1-3 image ID's. Because of this there is a very small chance (<.01) that
  * every call to replaceImage() will succeed (or fail). If this happens please run the program
- * again. If this happens more than once please consider buying a lottery ticket. 
+ * again. (If this happens more than once please consider buying a lottery ticket.)
  * 
  * Random() is used generate random sizes of data sets stored within each object (between 5
- * and 10 image ID's). It is also used to randomly distrubute the objects among the first
+ * and 10 image ID's). It is also used to randomly distribute the objects among the first
  * 10 spots of the array used for testing. The Console is used to display output and accept
  * key presses. 
  */
@@ -156,7 +156,7 @@ namespace P3
                 Console.Write("Attempting to replace ");
                 Console.Write(replace[index]);
                 Console.Write("...");
-                if (imageCollage.replaceImage(replace[index])) //Each call will succeed becuase
+                if (imageCollage.replaceImage(replace[index])) //Each call will succeed because
                     Console.Write("Success!");                 //   each ID is in the object
                 else
                     Console.Write("Failed!");
@@ -342,7 +342,7 @@ namespace P3
             }
         }
 
-        //Discription - Helper method used above and in test suite methods
+        //Description - Helper method used above and in test suite methods
         static void displayCollage(int[] imgCol)
         {
             int index = 0;

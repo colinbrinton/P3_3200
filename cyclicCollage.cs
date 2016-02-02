@@ -4,8 +4,8 @@
 // REVISION HISTORY: 1.0
 
 /* DESCRIPTION:
- * Extends the functionality of imagCollage. It uses an overriden getDisplay()
- * to cycle through its image IDs based on the given shift value during construciton.
+ * Extends the functionality of imagCollage. It uses an overridden getDisplay()
+ * to cycle through its image IDs based on the given shift value during construction.
  * Defaults to 2 in this example. replaceImage is overridden to always return false 
  * and will not modify any cyclicCollage data.
  */
