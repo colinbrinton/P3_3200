@@ -2,33 +2,64 @@
 // FILENAME: P3.cs
 // DATE: 2/1/2016
 // REVISION HISTORY: 1.0
+
+/* DESCRIPTION:
+ * The purpose of the driver is to demonstrate the differing functionality between the base class
+ * imageCollage and the two derived classes, cyclicCollage and bitCollage. To accomplish this
+ * a heterogeneous array is used. It is allocated using the method allocateCollageArray() which
+ * randomly assigns one of the the three classes to the first 10 indices. The last three index
+ * slots are reserved for one of each class. The random portion of the array demonstrates the
+ * proper functioning of the heterogenous array and the three constant end spots are used for
+ * demonstrating the differing behavior of each class. The output is organized into four pages,
+ * requiring a key press (input) to clear the screen and move on to the next. The first page
+ * demonstrates the heterogenous array working with a randomly distributed assortment of class
+ * objects. Pages two through four each demonstrate a class's unique behavior. Each class uses
+ * it's own "test suite" method within main along with two helper methods.
+ */
+
+/* ASSUMPTIONS:
+ * For the driver to function as intended the user only needs to press a key once between each
+ * page and once at the end to exit the program. The four page tests the behavior of bitCollage.
+ * One distinguishing feature of bitCollage is that the replaceImage() method will only succeed
+ * on images with odd ID's. The test object is allocated with randomly generated numbers
+ * and accessing the data within a bitCollage object is done through the display method which
+ * randomly omits 1-3 image ID's. Because of this there is a very small chance (<.01) that
+ * every call to replaceImage() will succeed (or fail). If this happens please run the program
+ * again. If this happens more than once please consider buying a lottery ticket. 
+ * 
+ * Random() is used generate random sizes of data sets stored within each object (between 5
+ * and 10 image ID's). It is also used to randomly distrubute the objects among the first
+ * 10 spots of the array used for testing. The Console is used to display output and accept
+ * key presses. 
+ */
+
 using System;
 
 namespace P3
 {
     class P3Driver
     {
-        const int H_ARRAY_SIZE = 13;
-        const int NUM_COL = 3;
-        const int IMAGE = 0;
-        const int CYCLIC = 1;
-        const int BIT = 2;
-        const int MIN_IMG = 5;
-        const int MAX_IMG = 11;
-        const int TEST_SIZE = 10;
-        const int REPEAT = 5;
-        const int COLLAGE_PORTION = 2;
+        const int H_ARRAY_SIZE = 13; //Complete size of the testing array (10 random slots +3)
+        const int NUM_COL = 3; //Used for random distribution in hetero array
+        const int IMAGE = 0;   //  |
+        const int CYCLIC = 1;  //  |
+        const int BIT = 2;     //  V
+        const int MIN_IMG = 5; // Size range for the number of images
+        const int MAX_IMG = 11;//     each test object should hold
+        const int TEST_SIZE = 10; // Used for the non-random test objects in index 10-12
+        const int REPEAT = 5;  //Number of times repeatDisplay() should call imageCollage.display()
+        const int COLLAGE_PORTION = 2; // Used in 
 
-        const int RANDOM_SIZE = H_ARRAY_SIZE - NUM_COL;
-        const int BIT_INDEX = H_ARRAY_SIZE - 3;
-        const int CYCLIC_INDEX = H_ARRAY_SIZE - 2;
-        const int IMAGE_INDEX = H_ARRAY_SIZE - 1;
+        const int RANDOM_SIZE = H_ARRAY_SIZE - NUM_COL; //These allow the amount of random objects in
+        const int BIT_INDEX = H_ARRAY_SIZE - 3;         // H_ARRAY_SIZE to change without breaking
+        const int CYCLIC_INDEX = H_ARRAY_SIZE - 2;      //   the driver. |
+        const int IMAGE_INDEX = H_ARRAY_SIZE - 1;       //               v
 
         static Random rnd = new Random();
 
         static void Main()
         {
-
+            //**Page One***
             Console.Write("Creating a heterogeneous array to test the three collage classes... ");
             imageCollage[] heteroCollageArray = new imageCollage[H_ARRAY_SIZE];
             allocateCollageArray(ref heteroCollageArray);
@@ -41,24 +72,27 @@ namespace P3
             displayAll(heteroCollageArray);
             Console.WriteLine();
             Console.Write("Press any key to clear screen and test imageCollage object...");
-            Console.ReadKey();
+            Console.ReadKey(); //Input needed to continue
 
+            //***Page Two***
             Console.Clear();
             Console.Write("Testing imageCollage functionality: ");
             Console.WriteLine();
             imageCollageTestSuite(heteroCollageArray[IMAGE_INDEX]);
             Console.WriteLine();
             Console.Write("Press any key to clear screen and test cyclicCollage object...");
-            Console.ReadKey();
-
+            Console.ReadKey(); //Input
+            
+            //**Page Three***
             Console.Clear();
             Console.Write("Testing cyclicCollage functionality: ");
             Console.WriteLine();
             cyclicCollageTestSuite(heteroCollageArray[CYCLIC_INDEX]);
             Console.WriteLine();
             Console.Write("Press any key to clear screen and test bitCollage object...");
-            Console.ReadKey();
+            Console.ReadKey(); //Input
 
+            //***Page Four***
             Console.Clear();
             Console.Write("Testing bitCollage functionality: ");
             Console.WriteLine();
@@ -66,9 +100,12 @@ namespace P3
             Console.WriteLine();
 
             Console.Write("Press any key to exit...");
-            Console.ReadKey();
+            Console.ReadKey(); //Input
         }
 
+        // Description - accepts a reference to an array of the base class imageCollage.
+        //               randomly allocates 10 slots of collage objects followed by one
+        //               of each object.
         static void allocateCollageArray(ref imageCollage[] colArray)
         {
             int collageSelector;
@@ -78,7 +115,7 @@ namespace P3
             {
                 collageSelector = rnd.Next(NUM_COL);
                 collageSize = rnd.Next(MIN_IMG, MAX_IMG);
-                if (index < RANDOM_SIZE)
+                if (index < RANDOM_SIZE) //Random portion of array
                 {
                     if (collageSelector == IMAGE)
                         colArray[index] = new imageCollage(collageSize);
@@ -87,7 +124,7 @@ namespace P3
                     if (collageSelector == BIT)
                         colArray[index] = new bitCollage(collageSize);
                 }
-                if (index >= RANDOM_SIZE)
+                if (index >= RANDOM_SIZE) // Constant portion of array used in test suites
                 {
                     colArray[index] = new bitCollage(TEST_SIZE);
                     ++index;
@@ -98,6 +135,8 @@ namespace P3
             }
         }
 
+        // Description - Tests the functionality of imageCollage. Calls every method in
+        //                in imageCollage under different conditions.
         static void imageCollageTestSuite(imageCollage imageCollage)
         {
             Console.Write("Calling getDisplay() on imageCollage object: ");
@@ -106,7 +145,7 @@ namespace P3
             Console.WriteLine();
 
             Console.WriteLine();
-            Console.Write("Testing replaceImage() imageCollage method: ");
+            Console.Write("Testing replaceImage() imageCollage method: "); 
             Console.WriteLine();
             Console.Write("Calling getDisplay() to fill an array of images to replace...");
             int[] replace = imageCollage.getDisplay();
@@ -117,8 +156,8 @@ namespace P3
                 Console.Write("Attempting to replace ");
                 Console.Write(replace[index]);
                 Console.Write("...");
-                if (imageCollage.replaceImage(replace[index]))
-                    Console.Write("Success!");
+                if (imageCollage.replaceImage(replace[index])) //Each call will succeed becuase
+                    Console.Write("Success!");                 //   each ID is in the object
                 else
                     Console.Write("Failed!");
                 Console.WriteLine();
@@ -166,7 +205,7 @@ namespace P3
             Console.Write("Done.");
             Console.WriteLine();
             Console.Write("Attempting to replace ");
-            Console.Write(replace[TEST_SIZE - 1]);
+            Console.Write(replace[TEST_SIZE - 1]); //This call will fail, already replaced above
             Console.Write("...");
             if (imageCollage.replaceImage(replace[TEST_SIZE - 1]))
                 Console.Write("Success!");
@@ -197,7 +236,10 @@ namespace P3
 
         }
 
-
+        // Description - Tests the functionality of cyclicCollage. Calls every
+        //               overridden method except for replaceImage(). 
+        //               replaceImage() is not intended to be used with
+        //               cyclicCollage and will always return false when called.
         static void cyclicCollageTestSuite(imageCollage cyclicCollage)
         {
             Console.Write("Calling getDisplay() on cyclicCollage object 5 times: ");
@@ -229,6 +271,8 @@ namespace P3
             Console.WriteLine();
         }
 
+        // Description - Tests the functionality of bitCollage. Calls every
+        //                overridden method.
         static void bitCollageTestSuite(imageCollage bitCollage)
         {
             Console.Write("Calling getDisplay() on bitCollage object 5 times: ");
@@ -288,6 +332,7 @@ namespace P3
             Console.WriteLine();
         }
 
+        //Description - Helper method used in test suite methods
         static void repeatDisplay(imageCollage item, int rep = REPEAT)
         {
             for (int count = 0; count < rep; ++count)
@@ -297,6 +342,7 @@ namespace P3
             }
         }
 
+        //Discription - Helper method used above and in test suite methods
         static void displayCollage(int[] imgCol)
         {
             int index = 0;
@@ -313,6 +359,7 @@ namespace P3
             
         }
 
+        //Description - Used in main() to display the random portion of the hetero array
         static void displayAll(imageCollage[] collageArray)
         {
             for (int index = 0; index < collageArray.Length; index++)
@@ -325,31 +372,7 @@ namespace P3
                     displayCollage(collageArray[index].getDisplay());
                     Console.WriteLine();
                 }
-                /*if (index >= RANDOM_SIZE)
-                {
-                    if ((collageArray.Length - (index + 1)) == BIT)
-                    {
-                        Console.WriteLine();
-                        Console.Write("Test bitCollage: ");
-                        Console.WriteLine();
-                    }
-                    if ((collageArray.Length - (index + 1)) == CYCLIC)
-                    {
-                        Console.Write("Test cyclicCollage: "); 
-                        Console.WriteLine();
-                    }
-                    if ((collageArray.Length - (index + 1)) == IMAGE)
-                    {
-                        Console.Write("Test imageCollage: ");
-                        Console.WriteLine();
-                    }
-                   
-                }*/
-                //displayCollage(collageArray[index].getDisplay());
-                //Console.WriteLine();
             }
         }
-
-
     }
 }

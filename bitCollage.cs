@@ -2,6 +2,18 @@
 // FILENAME: bitCollage.cs
 // DATE: 2/1/2016
 // REVISION HISTORY: 1.0
+
+/* DESCRIPTION:
+ * Extends the functionality of imageCollage. It uses an overriden getDisplay()
+ * to display a subset of its image IDs which is randomly determined to be between.
+ * one and three less than its original set. replaceImage is overridden all will only
+ * successfully replace odd image ID's.
+ */
+
+/* ASSUMPTIONS:
+ * replaceImage() will not be used on even image ID's. 
+ */
+
 using System;
 using System.Collections.Generic;
 
@@ -11,6 +23,12 @@ namespace P3
     {
         const int MIN_OMIT = 1;
         const int MAX_OMIT = 4;
+
+        //Description - Public default constructor, accepts the desired number of image
+        //              ID's with a default value of 5. Assumes used wants a random
+        //              selection of images within their database. Will not allow for
+        //              duplicate images.
+        //postconditions: valid bitCollage object ready to use
         public bitCollage(int size = DEFAULT_SIZE)
         {
             active = true;
@@ -25,6 +43,9 @@ namespace P3
             displaySize = collage.Count;
         }
 
+        //Description: returns the a smaller subset of its stored image ID's, will
+        //             randomly omit 1-3 images from returned int array.
+        //preconditions: called on an active bitCollage object
         public override int[] getDisplay()
         {
             if (active)
@@ -56,11 +77,15 @@ namespace P3
             }
             else
             {
-                int[] nullDisplay = new int[] { 0 };
+                int[] nullDisplay = new int[] { NULL };
                 return nullDisplay;
             }
         }
 
+        //preconditions: Called on an active imageCollage object
+        //               passed an odd ID
+        //postconditions: replaced paseed imgID with new random,
+        //                 non-duplicate ID (if ODD)
         public override bool replaceImage(int imgID)
         {
             if (active && ((imgID % 2) != 0) )
